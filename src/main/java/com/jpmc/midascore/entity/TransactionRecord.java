@@ -1,7 +1,6 @@
 package com.jpmc.midascore.entity;
 
 import jakarta.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 public class TransactionRecord {
@@ -19,14 +18,17 @@ public class TransactionRecord {
     private UserRecord recipient;
 
     private float amount;
+    
+    // New field for Task 4
+    private float incentive;
 
-    // Constructors
     public TransactionRecord() {}
 
-    public TransactionRecord(UserRecord sender, UserRecord recipient, float amount) {
+    public TransactionRecord(UserRecord sender, UserRecord recipient, float amount, float incentive) {
         this.sender = sender;
         this.recipient = recipient;
         this.amount = amount;
+        this.incentive = incentive;
     }
 
     // Getters and Setters
@@ -37,4 +39,6 @@ public class TransactionRecord {
     public void setRecipient(UserRecord recipient) { this.recipient = recipient; }
     public float getAmount() { return amount; }
     public void setAmount(float amount) { this.amount = amount; }
+    public float getIncentive() { return incentive; }
+    public void setIncentive(float incentive) { this.incentive = incentive; }
 }
