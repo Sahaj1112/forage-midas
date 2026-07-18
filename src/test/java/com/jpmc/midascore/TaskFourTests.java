@@ -1,5 +1,7 @@
 package com.jpmc.midascore;
 
+import com.jpmc.midascore.repository.UserRepository;
+import com.jpmc.midascore.entity.UserRecord;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,10 @@ public class TaskFourTests {
     @Autowired
     private FileLoader fileLoader;
 
+    // Injecting the repository directly to easily look up Wilbur
+    @Autowired
+    private UserRepository userRepository;
+
     @Test
     void task_four_verifier() throws InterruptedException {
         userPopulator.populate();
@@ -32,6 +38,17 @@ public class TaskFourTests {
         }
         Thread.sleep(2000);
 
+        // --- ADDED THIS BLOCK TO PRINT WILBUR'S BALANCE ---
+        try {
+            userRepository.findAll().forEach(user -> {
+                if ("wilbur".equalsIgnoreCase(user.getName())) {
+                    System.out.println(">>> WILBUR BALANCE IS: " + user.getBalance());
+                }
+            });
+        } catch (Exception e) {
+            System.out.println(">>> COULD NOT FETCH BALANCE: " + e.getMessage());
+        }
+        // --------------------------------------------------
 
         logger.info("----------------------------------------------------------");
         logger.info("----------------------------------------------------------");
